@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Watering Mission — Smart Garden Watering Assistant</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Sidebar Navigation (Desktop) -->
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <span class="logo-icon">🌿</span>
+                <div class="logo-text">
+                    <h1>WATERING MISSION</h1>
+                    <p>Garden Assistant</p>
+                </div>
+            </div>
+        </div>
+        <ul class="nav-links">
+            <li>
+                <a href="#dashboard" class="nav-link active" data-page="dashboard">
+                    <span class="nav-icon">📊</span>
+                    <span class="nav-label">Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="#start-session" class="nav-link" data-page="start-session">
+                    <span class="nav-icon">💧</span>
+                    <span class="nav-label">Start Session</span>
+                </a>
+            </li>
+            <li>
+                <a href="#active-session" class="nav-link" data-page="active-session">
+                    <span class="nav-icon">⏱️</span>
+                    <span class="nav-label">Active Session</span>
+                </a>
+            </li>
+            <li>
+                <a href="#history" class="nav-link" data-page="history">
+                    <span class="nav-icon">📋</span>
+                    <span class="nav-label">History</span>
+                </a>
+            </li>
+            <li>
+                <a href="#weekly-plan" class="nav-link" data-page="weekly-plan">
+                    <span class="nav-icon">📅</span>
+                    <span class="nav-label">Weekly Plan</span>
+                </a>
+            </li>
+        </ul>
+        <div class="sidebar-footer">
+            <button class="about-btn" id="aboutBtn">
+                <span class="nav-icon">ℹ️</span>
+                <span class="nav-label">About</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Bottom Navigation (Mobile) -->
+    <nav class="bottom-nav" id="bottomNav">
+        <a href="#dashboard" class="bottom-nav-link active" data-page="dashboard">
+            <span class="nav-icon">📊</span>
+            <span>Dashboard</span>
+        </a>
+        <a href="#start-session" class="bottom-nav-link" data-page="start-session">
+            <span class="nav-icon">💧</span>
+            <span>Start</span>
+        </a>
+        <a href="#active-session" class="bottom-nav-link" data-page="active-session">
+            <span class="nav-icon">⏱️</span>
+            <span>Active</span>
+        </a>
+        <a href="#history" class="bottom-nav-link" data-page="history">
+            <span class="nav-icon">📋</span>
+            <span>History</span>
+        </a>
+        <a href="#weekly-plan" class="bottom-nav-link" data-page="weekly-plan">
+            <span class="nav-icon">📅</span>
+            <span>Weekly</span>
+        </a>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="main-content" id="mainContent">
+
+        <!-- ====== DASHBOARD PAGE ====== -->
+        <section class="page active" id="page-dashboard">
+            <div class="page-header">
+                <div class="page-header-text">
+                    <h2 class="page-title">WATERING MISSION</h2>
+                    <p class="page-subtitle">Smart Garden Watering Assistant</p>
+                    <p class="page-description">Smart reminders for better watering habits.</p>
+                </div>
+                <div class="header-decoration">
+                    <span class="leaf-decoration">🌱</span>
+                </div>
+            </div>
+
+            <div class="dashboard-grid">
+                <!-- Today's Status -->
+                <div class="card card-status" id="cardTodayStatus">
+                    <div class="card-icon">🌤️</div>
+                    <h3 class="card-title">Today's Status</h3>
+                    <p class="card-value" id="todayStatus">Not Started</p>
+                    <span class="card-badge" id="todayBadge">Pending</span>
+                </div>
+
+                <!-- Next Watering -->
+                <div class="card card-next">
+                    <div class="card-icon">📆</div>
+                    <h3 class="card-title">Next Watering</h3>
+                    <p class="card-value" id="nextWateringDate">—</p>
+                    <p class="card-sub" id="nextWateringTime"></p>
+                </div>
+
+                <!-- Weekly Progress -->
+                <div class="card card-progress">
+                    <div class="card-icon">📈</div>
+                    <h3 class="card-title">Weekly Progress</h3>
+                    <p class="card-value" id="weeklyProgressText">0 / 3 sessions</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="weeklyProgressBar" style="width: 0%"></div>
+                    </div>
+                </div>
+
+                <!-- Last Session -->
+                <div class="card card-last">
+                    <div class="card-icon">🕐</div>
+                    <h3 class="card-title">Last Session</h3>
+                    <p class="card-value" id="lastSessionInfo">No sessions yet</p>
+                    <p class="card-sub" id="lastSessionDetails"></p>
+                </div>
+
+                <!-- Alerts -->
+                <div class="card card-alerts">
+                    <div class="card-icon">🔔</div>
+                    <h3 class="card-title">Alerts</h3>
+                    <p class="card-value" id="alertCount">0</p>
+                    <p class="card-sub">reminders sent</p>
+                </div>
+
+                <!-- Stats -->
+                <div class="card card-stats">
+                    <div class="card-icon">📊</div>
+                    <h3 class="card-title">Statistics</h3>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <span class="stat-number" id="totalSessions">0</span>
+                            <span class="stat-label">Total Sessions</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" id="avgDuration">0 min</span>
+                            <span class="stat-label">Avg Duration</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" id="longestSession">0 min</span>
+                            <span class="stat-label">Longest</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" id="lastWateringDate">—</span>
+                            <span class="stat-label">Last Watered</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Weekly Goal -->
+            <div class="weekly-goal-banner">
+                <span class="goal-icon">🎯</span>
+                <span class="goal-text">Weekly Goal: <strong>3 watering sessions</strong></span>
+                <span class="goal-progress" id="goalProgressBadge">0 / 3</span>
+            </div>
+
+            <!-- CTA -->
+            <div class="cta-section">
+                <button class="btn btn-primary btn-large cta-start" id="ctaStartBtn">
+                    <span class="btn-icon">💧</span>
+                    START WATERING
+                </button>
+            </div>
+        </section>
+
+        <!-- ====== START SESSION PAGE ====== -->
+        <section class="page" id="page-start-session">
+            <div class="page-header">
+                <h2 class="page-title">Start Watering Session</h2>
+                <p class="page-subtitle">Set up your watering session details</p>
+            </div>
+
+            <div class="form-container">
+                <form id="sessionForm" class="session-form">
+                    <!-- Garden Section -->
+                    <div class="form-group">
+                        <label class="form-label" for="gardenSection">Garden Section</label>
+                        <div class="section-options" id="sectionOptions">
+                            <label class="section-option">
+                                <input type="radio" name="gardenSection" value="Section 1" checked>
+                                <span class="section-card">
+                                    <span class="section-icon">🌻</span>
+                                    <span class="section-name">Section 1</span>
+                                </span>
+                            </label>
+                            <label class="section-option">
+                                <input type="radio" name="gardenSection" value="Section 2">
+                                <span class="section-card">
+                                    <span class="section-icon">🌷</span>
+                                    <span class="section-name">Section 2</span>
+                                </span>
+                            </label>
+                            <label class="section-option">
+                                <input type="radio" name="gardenSection" value="Section 3">
+                                <span class="section-card">
+                                    <span class="section-icon">🌿</span>
+                                    <span class="section-name">Section 3</span>
+                                </span>
+                            </label>
+                            <label class="section-option">
+                                <input type="radio" name="gardenSection" value="Section 4">
+                                <span class="section-card">
+                                    <span class="section-icon">🌳</span>
+                                    <span class="section-name">Section 4</span>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Watering Duration -->
+                    <div class="form-group">
+                        <label class="form-label" for="wateringDuration">Watering Duration</label>
+                        <div class="duration-options" id="durationOptions">
+                            <button type="button" class="duration-btn" data-duration="15">15 min</button>
+                            <button type="button" class="duration-btn active" data-duration="30">30 min</button>
+                            <button type="button" class="duration-btn" data-duration="45">45 min</button>
+                            <button type="button" class="duration-btn" data-duration="60">60 min</button>
+                            <button type="button" class="duration-btn" data-duration="custom">Custom</button>
+                        </div>
+                        <div class="custom-duration-input" id="customDurationInput" style="display:none">
+                            <input type="number" id="customMinutes" min="1" max="180" placeholder="Minutes" class="form-input">
+                        </div>
+                    </div>
+
+                    <!-- Start Time -->
+                    <div class="form-group">
+                        <label class="form-label" for="startTime">Start Time</label>
+                        <input type="time" id="startTime" class="form-input">
+                    </div>
+
+                    <!-- Expected End Time -->
+                    <div class="form-group">
+                        <label class="form-label">Expected End Time</label>
+                        <div class="expected-end" id="expectedEnd">
+                            <span class="end-time-display" id="endTimeDisplay">—</span>
+                        </div>
+                    </div>
+
+                    <!-- Info Note -->
+                    <div class="info-note">
+                        <span class="note-icon">📝</span>
+                        <p>Start this digital session when you physically start the garden watering motor.</p>
+                    </div>
+
+                    <!-- Submit -->
+                    <button type="submit" class="btn btn-primary btn-large btn-start-session">
+                        <span class="btn-icon">▶️</span>
+                        START SESSION
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- ====== ACTIVE SESSION PAGE ====== -->
+        <section class="page" id="page-active-session">
+            <div class="page-header">
+                <h2 class="page-title">Active Watering Session</h2>
+                <p class="page-subtitle" id="activeSessionSubtitle">No active session</p>
+            </div>
+
+            <!-- No Active Session -->
+            <div class="empty-state" id="noActiveSession">
+                <div class="empty-icon">💧</div>
+                <h3>No Active Session</h3>
+                <p>Start a watering session to see the timer here.</p>
+                <button class="btn btn-primary" id="goToStartBtn">Start a Session</button>
+            </div>
+
+            <!-- Active Session Content -->
+            <div class="active-session-content" id="activeSessionContent" style="display:none">
+                <!-- Status Badge -->
+                <div class="session-status-badge" id="sessionStatusBadge">
+                    <span class="status-dot"></span>
+                    <span class="status-text" id="sessionStatusText">WATERING</span>
+                </div>
+
+                <!-- Session Info Cards -->
+                <div class="session-info-grid">
+                    <div class="session-info-card">
+                        <span class="info-label">Garden Section</span>
+                        <span class="info-value" id="activeSection">—</span>
+                    </div>
+                    <div class="session-info-card">
+                        <span class="info-label">Start Time</span>
+                        <span class="info-value" id="activeStartTime">—</span>
+                    </div>
+                    <div class="session-info-card">
+                        <span class="info-label">Expected End</span>
+                        <span class="info-value" id="activeEndTime">—</span>
+                    </div>
+                    <div class="session-info-card">
+                        <span class="info-label">Duration</span>
+                        <span class="info-value" id="activeDuration">—</span>
+                    </div>
+                </div>
+
+                <!-- Timer Display -->
+                <div class="timer-container" id="timerContainer">
+                    <div class="timer-ring">
+                        <svg class="timer-svg" viewBox="0 0 200 200">
+                            <circle class="timer-bg" cx="100" cy="100" r="90" />
+                            <circle class="timer-progress" id="timerProgress" cx="100" cy="100" r="90" />
+                        </svg>
+                        <div class="timer-display">
+                            <span class="timer-remaining" id="timerRemaining">00:00:00</span>
+                            <span class="timer-label">remaining</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="session-progress">
+                    <div class="progress-bar progress-bar-large">
+                        <div class="progress-fill" id="sessionProgressBar" style="width: 0%"></div>
+                    </div>
+                    <div class="progress-labels">
+                        <span>Start</span>
+                        <span id="progressPercent">0%</span>
+                        <span>End</span>
+                    </div>
+                </div>
+
+                <!-- Attention Shift Message -->
+                <div class="attention-shift-message" id="attentionShiftMsg" style="display:none">
+                    <span class="attention-icon">⚠️</span>
+                    <p>You're currently busy. Remember to check the watering session.</p>
+                </div>
+
+                <!-- Alert Card -->
+                <div class="alert-card" id="alertCard" style="display:none">
+                    <div class="alert-icon-large">⚠️</div>
+                    <h3 class="alert-title">WATERING SESSION COMPLETE</h3>
+                    <p class="alert-message">The scheduled watering duration has ended. Please physically check the motor.</p>
+                    <button class="btn btn-danger btn-large" id="stopAlertBtn">
+                        🔇 STOP ALERT
+                    </button>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="session-actions" id="sessionActions">
+                    <button class="btn btn-warning" id="attentionShiftBtn">
+                        <span class="btn-icon">🔄</span>
+                        I'M BUSY / ATTENTION SHIFT
+                    </button>
+                    <button class="btn btn-secondary" id="pauseBtn">
+                        <span class="btn-icon">⏸️</span>
+                        PAUSE
+                    </button>
+                    <button class="btn btn-success" id="completeSessionBtn">
+                        <span class="btn-icon">✅</span>
+                        COMPLETE SESSION
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ====== HISTORY PAGE ====== -->
+        <section class="page" id="page-history">
+            <div class="page-header">
+                <h2 class="page-title">Watering History</h2>
+                <p class="page-subtitle">Review your past watering sessions</p>
+            </div>
+
+            <!-- Filters -->
+            <div class="history-filters">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="completed">Completed</button>
+                <button class="filter-btn" data-filter="alerted">Alerted</button>
+                <button class="filter-btn" data-filter="week">This Week</button>
+            </div>
+
+            <!-- History List -->
+            <div class="history-list" id="historyList">
+                <!-- Populated by JS -->
+            </div>
+
+            <!-- Empty State -->
+            <div class="empty-state" id="historyEmpty">
+                <div class="empty-icon">📋</div>
+                <h3>No watering sessions yet</h3>
+                <p>Start your first session to build your watering history.</p>
+                <button class="btn btn-primary" id="historyStartBtn">Start a Session</button>
+            </div>
+
+            <!-- Clear History -->
+            <div class="history-actions" id="historyActions" style="display:none">
+                <button class="btn btn-outline btn-danger-outline" id="clearHistoryBtn">
+                    🗑️ Clear History
+                </button>
+            </div>
+        </section>
+
+        <!-- ====== WEEKLY PLAN PAGE ====== -->
+        <section class="page" id="page-weekly-plan">
+            <div class="page-header">
+                <h2 class="page-title">Weekly Watering Plan</h2>
+                <p class="page-subtitle">Water the garden 3 times per week</p>
+            </div>
+
+            <!-- Weekly Goal Card -->
+            <div class="weekly-goal-card">
+                <div class="goal-header">
+                    <h3>🎯 This Week's Goal</h3>
+                    <span class="goal-badge" id="weeklyGoalBadge">0 / 3</span>
+                </div>
+                <div class="progress-bar progress-bar-large">
+                    <div class="progress-fill" id="weeklyPlanProgressBar" style="width: 0%"></div>
+                </div>
+                <div class="goal-stats">
+                    <span>3 watering days</span>
+                    <span id="weeklyRemaining">Remaining: 3</span>
+                </div>
+            </div>
+
+            <!-- Day Cards -->
+            <div class="week-grid" id="weekGrid">
+                <!-- Populated by JS -->
+            </div>
+
+            <!-- Weekly Summary -->
+            <div class="weekly-summary" id="weeklySummary">
+                <!-- Populated by JS -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ====== COMPLETION MODAL ====== -->
+    <div class="modal-overlay" id="completionModal" style="display:none">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Session Complete</h3>
+                <button class="modal-close" id="modalCloseBtn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-icon">✅</div>
+                <h4>Great job!</h4>
+                <p class="modal-session-info" id="modalSessionInfo"></p>
+
+                <div class="feedback-group">
+                    <label class="feedback-label">Did you check the motor?</label>
+                    <div class="feedback-options" id="motorFeedbackOptions">
+                        <button type="button" class="feedback-btn" data-value="off">
+                            <span>✅</span> YES — Motor switched OFF
+                        </button>
+                        <button type="button" class="feedback-btn" data-value="running">
+                            <span>⚠️</span> NO — Still running
+                        </button>
+                        <button type="button" class="feedback-btn" data-value="unsure">
+                            <span>❓</span> NOT SURE
+                        </button>
+                    </div>
+                </div>
+
+                <div class="feedback-group">
+                    <label class="feedback-label">Was this reminder useful?</label>
+                    <div class="feedback-options" id="reminderFeedbackOptions">
+                        <button type="button" class="feedback-btn" data-value="yes">
+                            <span>👍</span> YES
+                        </button>
+                        <button type="button" class="feedback-btn" data-value="no">
+                            <span>👎</span> NO
+                        </button>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary btn-large" id="saveFeedbackBtn" disabled>
+                    Save & Complete
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====== ABOUT MODAL ====== -->
+    <div class="modal-overlay" id="aboutModal" style="display:none">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>About Watering Mission</h3>
+                <button class="modal-close" id="aboutModalCloseBtn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-icon">🌿</div>
+                <h4>WATERING MISSION</h4>
+                <p class="about-tagline">Smart Garden Watering Assistant</p>
+                <div class="about-text">
+                    <p>This prototype provides digital watering-session tracking and reminders. It does not directly detect or control the physical bore motor.</p>
+                    <p>Users manually start the digital session when they physically begin watering and manually check the motor when alerted.</p>
+                    <p class="about-note">This is a software prototype developed as a college project to demonstrate smart reminder-based watering habits.</p>
+                </div>
+                <div class="about-features">
+                    <h5>Features</h5>
+                    <ul>
+                        <li>⏱️ Session timing & countdown</li>
+                        <li>🔔 Sound alerts & notifications</li>
+                        <li>📊 Watering history tracking</li>
+                        <li>📅 Weekly 3-session goal planner</li>
+                        <li>💾 Persistent local data storage</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====== CONFIRM DIALOG ====== -->
+    <div class="modal-overlay" id="confirmModal" style="display:none">
+        <div class="modal modal-small">
+            <div class="modal-header">
+                <h3 id="confirmTitle">Confirm</h3>
+            </div>
+            <div class="modal-body">
+                <p id="confirmMessage">Are you sure?</p>
+                <div class="confirm-actions">
+                    <button class="btn btn-secondary" id="confirmCancelBtn">Cancel</button>
+                    <button class="btn btn-danger" id="confirmOkBtn">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <span class="toast-icon" id="toastIcon">✅</span>
+        <span class="toast-message" id="toastMessage">Action completed</span>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
